@@ -1,4 +1,4 @@
-package com.aqarati.common.security.service;
+package org.aqarati.common.security.service;
 
 public interface TokenBlocklistService {
     /**

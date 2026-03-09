@@ -1,4 +1,4 @@
-package com.aqarati.common.security.util;
+package org.aqarati.common.security.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;

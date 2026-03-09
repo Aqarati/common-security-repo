@@ -1,7 +1,7 @@
-package com.aqarati.common.security.filter;
+package org.aqarati.common.security.filter;
 
-import com.aqarati.common.security.service.TokenBlocklistService;
-import com.aqarati.common.security.util.JwtValidationUtil;
+import org.aqarati.common.security.service.TokenBlocklistService;
+import org.aqarati.common.security.util.JwtValidationUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

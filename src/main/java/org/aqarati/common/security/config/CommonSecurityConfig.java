@@ -1,7 +1,7 @@
-package com.aqarati.common.security.config;
+package org.aqarati.common.security.config;
 
-import com.aqarati.common.security.filter.JwtAuthenticationFilter;
-import com.aqarati.common.security.service.TokenBlocklistService;
+import org.aqarati.common.security.filter.JwtAuthenticationFilter;
+import org.aqarati.common.security.service.TokenBlocklistService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * Auto-configuration for common security components.
  */
 @Configuration
-@ComponentScan(basePackages = "com.aqarati.common.security")
+@ComponentScan(basePackages = "org.aqarati.common.security")
 @EnableWebSecurity
 public class CommonSecurityConfig {
 
