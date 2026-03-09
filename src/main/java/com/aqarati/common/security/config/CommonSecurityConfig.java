@@ -21,10 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @ComponentScan(basePackages = "com.aqarati.common.security")
 @EnableWebSecurity
-@RequiredArgsConstructor
 public class CommonSecurityConfig {
-
-    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     /**
      * Provides a default permissive TokenBlocklistService if the importing microservice
@@ -48,7 +45,7 @@ public class CommonSecurityConfig {
      */
     @Bean
     @ConditionalOnMissingBean(SecurityFilterChain.class)
-    public SecurityFilterChain commonSecurityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain commonSecurityFilterChain(HttpSecurity http, JwtAuthenticationFilter jwtAuthenticationFilter) throws Exception {
         http
             // Stateless sessions
             .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
