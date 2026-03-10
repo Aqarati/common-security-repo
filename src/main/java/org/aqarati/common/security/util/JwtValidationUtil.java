@@ -6,7 +6,8 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.security.SignatureException;
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -17,9 +18,9 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.Optional;
 
-@Slf4j
 @Component
 public class JwtValidationUtil {
+    private static final Logger log = LoggerFactory.getLogger(JwtValidationUtil.class);
 
     private final RSAPublicKey publicKey;
 

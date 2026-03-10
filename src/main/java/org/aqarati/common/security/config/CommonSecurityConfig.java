@@ -2,7 +2,6 @@ package org.aqarati.common.security.config;
 
 import org.aqarati.common.security.filter.JwtAuthenticationFilter;
 import org.aqarati.common.security.service.TokenBlocklistService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
