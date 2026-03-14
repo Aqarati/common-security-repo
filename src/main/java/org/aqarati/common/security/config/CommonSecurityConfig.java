@@ -1,8 +1,6 @@
 package org.aqarati.common.security.config;
 
 import org.aqarati.common.security.filter.JwtAuthenticationFilter;
-import org.aqarati.common.security.service.TokenBlocklistService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -22,22 +20,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @ComponentScan(basePackages = "org.aqarati.common.security")
 @EnableWebSecurity
 public class CommonSecurityConfig {
-
-    /**
-     * Provides a default permissive TokenBlocklistService if the importing microservice
-     * does not define its own (e.g. via Redis).
-     */
-    @Bean
-    @ConditionalOnMissingBean(TokenBlocklistService.class)
-    public TokenBlocklistService defaultTokenBlocklistService() {
-        return new TokenBlocklistService() {
-            @Override
-            public boolean isBlocked(String jti) {
-                // By default, no tokens are blocklisted unless a specific service overrides this bean.
-                return false;
-            }
-        };
-    }
 
     /**
      * Provides a basic stateless SecurityFilterChain that relies on JwtAuthenticationFilter.

@@ -1,6 +1,6 @@
 package org.aqarati.common.security.filter;
 
-import org.aqarati.common.security.service.TokenBlocklistService;
+import org.aqarati.common.security.model.AuthenticatedUser;
 import org.aqarati.common.security.util.JwtValidationUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -24,7 +24,6 @@ import java.util.List;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtValidationUtil jwtValidationUtil;
-    private final TokenBlocklistService blocklistService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -39,24 +38,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
 
-        // Reject tokens that have been explicitly revoked (logout)
-        String jti = jwtValidationUtil.getJti(token);
-        if (blocklistService.isBlocked(jti)) {
-            log.warn("Rejected blocklisted JWT jti={}", jti);
-            chain.doFilter(request, response);
-            return;
-        }
-
         // Extract identity from JWT claims — no database call needed
         String email  = jwtValidationUtil.getEmail(token);
         String userId = jwtValidationUtil.getUserId(token);
 
-        // Build authorities from claims - For general services, we default to ROLE_USER
-        // Note: Could be expanded to parse 'role' claim if we want to support ROLE_ADMIN here
+        AuthenticatedUser principal = new AuthenticatedUser(userId, email);
         List<SimpleGrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_USER"));
 
         UsernamePasswordAuthenticationToken authentication =
-                new UsernamePasswordAuthenticationToken(email, userId, authorities);
+                new UsernamePasswordAuthenticationToken(principal, null, authorities);
 
         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
         SecurityContextHolder.getContext().setAuthentication(authentication);
